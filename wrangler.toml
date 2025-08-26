@@ -1,0 +1,28 @@
+name = "sitemap-crawler"
+main = "src/index.ts"
+compatibility_date = "2024-10-01"
+
+
+# Optional: Bind a Queue to fan out URL crawls (inline crawling will be used if absent)
+# [[queues.producers]]
+# queue = "crawl-urls"
+# binding = "CRAWL_QUEUE"
+
+
+# [[queues.consumers]]
+# queue = "crawl-urls"
+
+
+[vars]
+# Default target if none is provided
+DEFAULT_SITEMAP = "https://megabyte.space/sitemap.xml"
+# Good bots identify themselves politely
+USER_AGENT = "MegabyteLabsBot/1.0 (+https://megabyte.space)"
+
+# Safety knobs for Workers limits and politeness
+MAX_CONCURRENCY = "5" # pending crawls at once
+MAX_URLS_PER_RUN = "40" # keep < 50 subrequests per invocation
+PREVIEW_LIMIT = "50" # how many URLs to show in /preview
+
+[triggers]
+crons = ["0 * * * *"]
